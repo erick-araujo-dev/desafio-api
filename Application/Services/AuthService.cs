@@ -1,9 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using SorteOnlineDesafio.Application.Commom.Exceptions;
+using SorteOnlineDesafio.Application.Interfaces;
 using SorteOnlineDesafio.Domain.Interfaces.Repository;
 
 namespace SorteOnlineDesafio.Application.Services
 {
-    public class AuthService
+    public class AuthService : IAuthService
     {
         private readonly IUsuarioRepository _usuarioRepository;
 
@@ -15,12 +16,15 @@ namespace SorteOnlineDesafio.Application.Services
         public bool VerifyPassword(string email, string plainPassword)
         {
             var usuario = _usuarioRepository.Find(u => u.Email == email).FirstOrDefault();
+
             if (usuario == null)
             {
-                return false;
+                //Lanca excessao quando usuario nao for encontrado
+                throw new NotFoundException("Usuário inválido.");
             }
 
             return BCrypt.Net.BCrypt.Verify(plainPassword, usuario.Senha);
         }
+
     }
 }

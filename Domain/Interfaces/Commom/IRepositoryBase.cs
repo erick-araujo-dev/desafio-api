@@ -5,6 +5,7 @@ namespace SorteOnlineDesafio.Domain.Interfaces.Commom
     public interface IRepositoryBase<TEntity, TKey> where TEntity : class
     {
         void Add(TEntity entity);
+        TEntity AddAndReturnEntity(TEntity obj);
         void Update(TEntity entity);
         void Delete(TEntity entity);
         TEntity Get(TKey id);

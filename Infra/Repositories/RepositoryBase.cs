@@ -30,14 +30,15 @@ namespace SorteOnlineDesafio.Infra.Repositories
 
         public void Add(TEntity obj)
         {
-            //estado anterior
-            var x = _context.Entry(obj).State;
-
             _entities.Add(obj);
-
-            //estado posterior
-            var b = _context.Entry(obj).State;
             _context.SaveChanges();
+        }
+
+        public TEntity AddAndReturnEntity(TEntity obj)
+        {
+            _entities.Add(obj);
+            _context.SaveChanges();
+            return obj;
         }
 
         public void Update(TEntity obj)
