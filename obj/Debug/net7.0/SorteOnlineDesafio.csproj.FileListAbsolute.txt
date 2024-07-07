@@ -78,3 +78,10 @@ C:\Users\Erick Araujo\source\repos\SorteOnlineDesafio\obj\Debug\net7.0\SorteOnli
 C:\Users\Erick Araujo\source\repos\SorteOnlineDesafio\obj\Debug\net7.0\SorteOnlineDesafio.genruntimeconfig.cache
 C:\Users\Erick Araujo\source\repos\SorteOnlineDesafio\obj\Debug\net7.0\ref\SorteOnlineDesafio.dll
 C:\Users\Erick Araujo\source\repos\SorteOnlineDesafio\bin\Debug\net7.0\BCrypt.Net-Next.dll
+C:\Users\Erick Araujo\source\repos\SorteOnlineDesafio\bin\Debug\net7.0\System.Net.Http.Formatting.dll
+C:\Users\Erick Araujo\source\repos\SorteOnlineDesafio\bin\Debug\net7.0\System.Web.Http.dll
+C:\Users\Erick Araujo\source\repos\SorteOnlineDesafio\bin\Debug\net7.0\System.Web.Http.WebHost.dll
+C:\Users\Erick Araujo\source\repos\SorteOnlineDesafio\bin\Debug\net7.0\Microsoft.Web.Infrastructure.dll
+C:\Users\Erick Araujo\source\repos\SorteOnlineDesafio\bin\Debug\net7.0\Newtonsoft.Json.dll
+C:\Users\Erick Araujo\source\repos\SorteOnlineDesafio\bin\Debug\net7.0\Swashbuckle.Core.dll
+C:\Users\Erick Araujo\source\repos\SorteOnlineDesafio\bin\Debug\net7.0\WebActivatorEx.dll

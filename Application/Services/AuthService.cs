@@ -15,16 +15,10 @@ namespace SorteOnlineDesafio.Application.Services
 
         public bool VerifyPassword(string email, string plainPassword)
         {
-            var usuario = _usuarioRepository.Find(u => u.Email == email).FirstOrDefault();
-
-            if (usuario == null)
-            {
-                //Lanca excessao quando usuario nao for encontrado
-                throw new NotFoundException("Usuário inválido.");
-            }
+            //Lanca NotFoundException quando usuario nao for encontrado
+            var usuario = _usuarioRepository.Find(u => u.Email == email).FirstOrDefault() ?? throw new NotFoundException("Usuário inválido.");
 
             return BCrypt.Net.BCrypt.Verify(plainPassword, usuario.Senha);
         }
-
     }
 }

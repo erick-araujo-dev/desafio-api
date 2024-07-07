@@ -1,25 +1,26 @@
 ﻿using SorteOnlineDesafio.Application.Commom;
 using SorteOnlineDesafio.Application.Commom.Exceptions;
 using SorteOnlineDesafio.Application.Interfaces;
+using SorteOnlineDesafio.Application.Models;
 using SorteOnlineDesafio.Domain.Entities;
 using SorteOnlineDesafio.Domain.Interfaces.Repository;
 
 namespace SorteOnlineDesafio.Application.Services
 {
-    public class UsuarioService : IUsuarioService
+    public class UserService : IUserService
     {
         private readonly IUsuarioRepository _usuarioRepository;
 
-        public UsuarioService(IUsuarioRepository usuarioRepository)
+        public UserService(IUsuarioRepository usuarioRepository)
         {
             _usuarioRepository = usuarioRepository;
         }   
 
-        public Usuario createUser(string name, string email, string password) 
+        public UserModel CreateUser(string name, string email, string password) 
         {
-            validateEmail(email);
+            ValidateEmail(email);
 
-            Usuario model = new Usuario
+            Usuario createEntitie = new Usuario
             {
                 Nome = name,
                 Email = email,
@@ -27,12 +28,19 @@ namespace SorteOnlineDesafio.Application.Services
                 DataCriacao = DateTime.Now,
             };
 
-            var user = _usuarioRepository.AddAndReturnEntity(model);
+            var entitie = _usuarioRepository.AddAndReturnEntity(createEntitie);
 
-            return user;
+            UserModel model = new UserModel
+            {
+                UserId = entitie.UsuarioId,
+                Name = entitie.Nome,
+                Email = entitie.Email
+            };
+
+            return model;
         }
 
-        private void validateEmail(string email)
+        private void ValidateEmail(string email)
         {
             var emailValid = Util.ValidateEmail(email);
 
@@ -41,9 +49,9 @@ namespace SorteOnlineDesafio.Application.Services
                 throw new BusinessException("Formato de e-mail inválido.");
             }
 
-            var userAlreadyCreated = _usuarioRepository.Find(u => u.Email == email).FirstOrDefault();
+            var emailAlreadyUsed = _usuarioRepository.Find(u => u.Email == email).FirstOrDefault();
 
-            if (userAlreadyCreated != null) 
+            if (emailAlreadyUsed != null) 
             {
                 throw new BusinessException("E-mail já cadastrado.");
             }

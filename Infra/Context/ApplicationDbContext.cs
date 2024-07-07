@@ -48,7 +48,7 @@ public class ApplicationDbContext : DbContext
             entity.Property(p => p.ValorTotal).HasColumnName("valor_total").IsRequired().HasColumnType("DECIMAL(18, 2)");
 
             entity.HasOne(p => p.Cliente)
-                  .WithMany(c => c.Pedidos)
+                  .WithMany(c => c.Pedido)
                   .HasForeignKey(p => p.ClienteId)
                   .OnDelete(DeleteBehavior.Restrict);
         });

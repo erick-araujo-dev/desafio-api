@@ -1,5 +1,6 @@
 ﻿using Microsoft.IdentityModel.Tokens;
 using SorteOnlineDesafio.Application.Interfaces;
+using SorteOnlineDesafio.Application.Models;
 using SorteOnlineDesafio.Domain.Entities;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -18,7 +19,7 @@ namespace SorteOnlineDesafio.Security.Token
             _expirationMinutes = int.Parse(configuration["Jwt:ExpirationMinutes"]);
         }
 
-        public string GenerateToken(Usuario user)
+        public string GenerateToken(UserModel user)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(_secretKey);
@@ -26,8 +27,8 @@ namespace SorteOnlineDesafio.Security.Token
             {
                 Subject = new ClaimsIdentity(new Claim[]
                 {
-                    new Claim(ClaimTypes.Name, user.Nome.ToString()),
-                    new Claim(ClaimTypes.NameIdentifier, user.UsuarioId.ToString()),
+                    new Claim(ClaimTypes.Name, user.Name.ToString()),
+                    new Claim(ClaimTypes.NameIdentifier, user.UserId.ToString()),
                     new Claim(ClaimTypes.Email, user.Email)
 
                 }),

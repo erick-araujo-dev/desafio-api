@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SorteOnlineDesafio.Application.Interfaces;
+using SorteOnlineDesafio.Application.Models;
 using SorteOnlineDesafio.Domain.Interfaces.Repository;
 using SorteOnlineDesafio.WebApi.Commom;
 using SorteOnlineDesafio.WebApi.Models.Request;
@@ -13,7 +14,7 @@ namespace SorteOnlineDesafio.WebApi.Controllers
     {
         private readonly IAuthService _authService;
         private readonly IUsuarioRepository _usuarioRepository;
-        private readonly IUsuarioService _usuarioService;
+        private readonly IUserService _userService;
         private readonly ITokenService _tokenService;
 
         public AuthController
@@ -21,13 +22,13 @@ namespace SorteOnlineDesafio.WebApi.Controllers
             IAuthService authService,
             IUsuarioRepository usuarioRepository,
             ITokenService tokenService,
-            IUsuarioService usuarioService
+            IUserService userService
         )
         {
             _authService = authService;
             _usuarioRepository = usuarioRepository;
             _tokenService = tokenService;
-            _usuarioService = usuarioService;
+            _userService = userService;
         }
 
         [HttpPost("signin")]
@@ -43,14 +44,21 @@ namespace SorteOnlineDesafio.WebApi.Controllers
                 }
 
                 //Aqui nunca vai ser null pq o metodo VerifyPassword lanca uma NotFoundException quando nao encontra user pelo email
-                var user = _usuarioRepository.Find(u => u.Email == request.Email).FirstOrDefault();
+                var userEntitie = _usuarioRepository.Find(u => u.Email == request.Email).FirstOrDefault();
 
-                string token = _tokenService.GenerateToken(user);
+                var userModel = new UserModel
+                {
+                    UserId = userEntitie.UsuarioId,
+                    Name = userEntitie.Nome,
+                    Email = userEntitie.Email,
+                };
 
-                SignInResponse response = new SignInResponse
+                string token = _tokenService.GenerateToken(userModel);
+
+                SignInResponse response = new()
                 {
                     Token = token,
-                    UserId = user.UsuarioId
+                    UserId = userModel.UserId
                 };
 
                 return Ok(response);
@@ -66,17 +74,17 @@ namespace SorteOnlineDesafio.WebApi.Controllers
         {
             try
             {
-                var userCreated = _usuarioService.createUser(request.Name, request.Email, request.Password);
+                var userCreated = _userService.CreateUser(request.Name, request.Email, request.Password);
 
                 string token = _tokenService.GenerateToken(userCreated);
 
-                SignInResponse response = new SignInResponse
+                SignInResponse response = new()
                 {
                     Token = token,
-                    UserId = userCreated.UsuarioId
+                    UserId = userCreated.UserId
                 };
 
-                return Created($"/user/{userCreated.UsuarioId}", response);
+                return Created($"api/user/{userCreated.UserId}", response);
             }
             catch (Exception ex)
             {

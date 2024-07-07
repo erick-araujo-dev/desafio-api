@@ -28,7 +28,8 @@ namespace SorteOnlineDesafio.Infra.IoC
             // Services
             services.AddScoped<ITokenService, TokenService>();
             services.AddScoped<IAuthService, AuthService>();
-            services.AddScoped<IUsuarioService, UsuarioService>();
+            services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IStoreService, StoreService>();
 
 
             // Configuração de autenticação

@@ -18,7 +18,7 @@ namespace SorteOnlineDesafio.WebApi.Controllers
         }
 
         [HttpGet]
-        [Route("/all")]
+        [Route("all")]
 
         public IActionResult GetAll()
         {
@@ -35,7 +35,7 @@ namespace SorteOnlineDesafio.WebApi.Controllers
         }
 
         [HttpGet]
-        [Route("/{id}")]
+        [Route("{id}")]
         public IActionResult GetById([FromQuery] int id)
         {
             try

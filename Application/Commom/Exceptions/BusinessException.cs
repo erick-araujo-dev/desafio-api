@@ -1,4 +1,4 @@
-﻿namespace SorteOnlineDesafio.Application.Commom
+﻿namespace SorteOnlineDesafio.Application.Commom.Exceptions
 {
     public class BusinessException : Exception
     {

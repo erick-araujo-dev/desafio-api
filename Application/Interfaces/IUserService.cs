@@ -3,8 +3,8 @@ using SorteOnlineDesafio.Domain.Entities;
 
 namespace SorteOnlineDesafio.Application.Interfaces
 {
-    public interface ITokenService
+    public interface IUserService
     {
-        string GenerateToken(UserModel user);
+        UserModel CreateUser(string name, string email, string password);
     }
 }

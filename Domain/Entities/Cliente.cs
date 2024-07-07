@@ -5,6 +5,6 @@
         public int ClienteId { get; set; }
         public string Nome { get; set; }
         public string Email { get; set; }
-        public ICollection<Pedido> Pedidos { get; set; }
+        public ICollection<Pedido> Pedido { get; set; }
     }
 }
