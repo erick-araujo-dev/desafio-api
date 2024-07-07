@@ -6,11 +6,11 @@ SorteOnlineDesafioApi is an API designed to manage clients and orders for a stor
 
 ## Base URL
 
-The base URL for all endpoints is `https://localhost:7131/`.
+The base URL for all endpoints is `https://localhost:7131/api`.
 
 ## Authentication
 
-Authentication is required for accessing certain endpoints.
+Authentication is required to access endpoints prefixed with "user" and "store". Authentication is done via Bearer Token.
 
 ## Controllers
 
@@ -19,7 +19,7 @@ Authentication is required for accessing certain endpoints.
 ### Sign In
 
 - **Method:** POST
-- **Endpoint:** /api/auth/signin
+- **Endpoint:** /auth/signin
 - **Description:** Authenticates a user with email and password.
 - **Request Body:**
 	```
@@ -35,7 +35,7 @@ Authentication is required for accessing certain endpoints.
 ### Sign Up
 
 - **Method:** POST
-- **Endpoint:** /api/auth/signup
+- **Endpoint:** /auth/signup
 - **Description:** Registers a new user with name, email, and password.
 - **Request Body:**
 	```
@@ -54,7 +54,7 @@ Authentication is required for accessing certain endpoints.
 ### Get All Users
 
 - **Method:** GET
-- **Endpoint:** /api/user/all
+- **Endpoint:** /user/all
 - **Description:** Retrieves all users.
 - **Response:**
   - Status Code 200 OK
@@ -63,7 +63,7 @@ Authentication is required for accessing certain endpoints.
 ### Get User by ID
 
 - **Method:** GET
-- **Endpoint:** /api/user/{id}
+- **Endpoint:** /user/{id}
 - **Description:** Retrieves a user by their ID.
 - **Parameters:**
   - `id` (integer): The ID of the user to retrieve.
@@ -76,7 +76,7 @@ Authentication is required for accessing certain endpoints.
 ### Create Client
 
 - **Method:** POST
-- **Endpoint:** /api/store/client/create
+- **Endpoint:** /store/client/create
 - **Description:** Creates a new client with the provided name and email.
 - **Request Body:**
 	```
@@ -92,7 +92,7 @@ Authentication is required for accessing certain endpoints.
 ### Get Client by ID
 
 - **Method:** GET
-- **Endpoint:** /api/store/client/{clientId}
+- **Endpoint:** /store/client/{clientId}
 - **Description:** Retrieves a client by their ID.
 - **Parameters:**
   - `clientId` (integer): The ID of the client to retrieve.
@@ -103,7 +103,7 @@ Authentication is required for accessing certain endpoints.
 ### Get All Clients
 
 - **Method:** GET
-- **Endpoint:** /api/store/client/all
+- **Endpoint:** /store/client/all
 - **Description:** Retrieves all clients.
 - **Response:**
   - Status Code 200 OK
@@ -112,7 +112,7 @@ Authentication is required for accessing certain endpoints.
 ### Create Order
 
 - **Method:** POST
-- **Endpoint:** /api/store/order/create
+- **Endpoint:** /store/order/create
 - **Description:** Creates a new order for a client.
 - **Request Body:**
 	```
@@ -128,7 +128,7 @@ Authentication is required for accessing certain endpoints.
 ### Get Order by ID
 
 - **Method:** GET
-- **Endpoint:** /api/store/order/{orderId}
+- **Endpoint:** /store/order/{orderId}
 - **Description:** Retrieves an order by its ID.
 - **Parameters:**
   - `orderId` (integer): The ID of the order to retrieve.
@@ -139,7 +139,7 @@ Authentication is required for accessing certain endpoints.
 ### Get All Orders
 
 - **Method:** GET
-- **Endpoint:** /api/store/order/all
+- **Endpoint:** /store/order/all
 - **Description:** Retrieves all orders.
 - **Response:**
   - Status Code 200 OK
@@ -148,7 +148,7 @@ Authentication is required for accessing certain endpoints.
 ### Delete Order
 
 - **Method:** DELETE
-- **Endpoint:** /api/store/order/{orderId}
+- **Endpoint:** /store/order/{orderId}
 - **Description:** Deletes an order by its ID.
 - **Parameters:**
   - `orderId` (integer): The ID of the order to delete.
@@ -158,7 +158,7 @@ Authentication is required for accessing certain endpoints.
 ### Create Client and Order
 
 - **Method:** POST
-- **Endpoint:** /api/store/client-order/create
+- **Endpoint:** /store/client-order/create
 - **Description:** Creates a new client and places an order for them.
 - **Request Body:**
 	```
@@ -175,7 +175,7 @@ Authentication is required for accessing certain endpoints.
 ### Get Client with All Orders by ID
 
 - **Method:** GET
-- **Endpoint:** /api/store/client-order/{clientId}
+- **Endpoint:** /store/client-order/{clientId}
 - **Description:** Retrieves a client by ID along with all their orders.
 - **Parameters:**
   - `clientId` (integer): The ID of the client to retrieve.
@@ -186,7 +186,7 @@ Authentication is required for accessing certain endpoints.
 ### Delete Client and All Their Orders
 
 - **Method:** DELETE
-- **Endpoint:** /api/store/client-order/{clientId}
+- **Endpoint:** /store/client-order/{clientId}
 - **Description:** Deletes a client by ID along with all their associated orders.
 - **Parameters:**
   - `clientId` (integer): The ID of the client to delete.
