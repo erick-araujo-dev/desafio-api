@@ -15,15 +15,18 @@ namespace SorteOnlineDesafio.Application.Services
         private readonly IPedidoRepository _pedidoRepository;
         private readonly IUnitOfWork _unitOfWork;
 
+        #region Constructor
         public StoreService(IClienteRepository clienteRepository, IPedidoRepository pedidoRepository, IUnitOfWork unitOfWork)
         {
             _clienteRepository = clienteRepository;
             _pedidoRepository = pedidoRepository;
             _unitOfWork = unitOfWork;
         }
+        #endregion
 
         #region Client
 
+        // Criar um cliente
         public ClientModel CreateClient(string name, string email)
         {
             ValidateEmail(email);
@@ -46,6 +49,8 @@ namespace SorteOnlineDesafio.Application.Services
             return clientModel;
         }
 
+
+        // Obter um cliente pelo ClientId, com a opção de incluir os pedidos do cliente
         public ClientModel GetClientById(int clientId, bool includeOrders)
         {
             var client = _clienteRepository.Find(c => c.ClienteId == clientId).FirstOrDefault() ?? throw new NotFoundException("Cliente não encontrado."); ;
@@ -78,6 +83,8 @@ namespace SorteOnlineDesafio.Application.Services
             return clientWithOrders;
         }
 
+
+        // Obter todos os clientes
         public IList<ClientModel> GetAllClient()
         {
             var clients = _clienteRepository.All().Select(c => new ClientModel
@@ -94,6 +101,7 @@ namespace SorteOnlineDesafio.Application.Services
 
         #region Order
 
+        //Criar um pedido
         public OrderModel CreateOrder(int clientId, decimal totalValue)
         {
             
@@ -126,6 +134,8 @@ namespace SorteOnlineDesafio.Application.Services
             return orderModel;
         }
 
+
+        // Obter um pedido pelo PedidoId
         public OrderModel GetOrderById(int orderId)
         {
             var order = _pedidoRepository.Find(p => p.PedidoId == orderId).FirstOrDefault() ?? throw new NotFoundException("Pedido não encontrado.");
@@ -140,7 +150,9 @@ namespace SorteOnlineDesafio.Application.Services
 
             return orderResponse;
         }
+        
 
+        //Obter todos os pedidos
         public IList<OrderModel> GetAllOrder()
         {
             var orders = _pedidoRepository.All().Select(o => new OrderModel
@@ -154,6 +166,8 @@ namespace SorteOnlineDesafio.Application.Services
             return orders;
         }
 
+
+        //Excluir um pedido pelo PedidoId
         public void DeleteOrder(int orderId)
         {
             var order = _pedidoRepository.Find(p => p.PedidoId == orderId).FirstOrDefault() ?? throw new BusinessException($"Pedido não encontrado.");
@@ -165,8 +179,10 @@ namespace SorteOnlineDesafio.Application.Services
 
         #region ClientOrder
 
+        //Cria um cliente juntamente com um pedido para o mesmo.
         public ClientOrderModel CreateClientAndOrder (string name, string email, decimal totalValue)
         {
+            //Abre a transacao
             _unitOfWork.BeginTransaction();
             
             try
@@ -181,6 +197,7 @@ namespace SorteOnlineDesafio.Application.Services
                     Order = order
                 };
 
+                //Comita a transacao
                 _unitOfWork.CommitTransaction();
 
                 return modelReturn;
@@ -188,17 +205,22 @@ namespace SorteOnlineDesafio.Application.Services
             }
             catch
             {
+                //Faz rollback e repassa a ex gerada
                 _unitOfWork.RollbackTransaction();
                 throw; 
             }
             finally
             {
+                //Certifica que a transacao se encerre
                 _unitOfWork.Dispose();
             }
         }
 
+
+        //Excluir um cliente juntamente com todos os pedidos do mesmo
         public void DeleteClientAndAllTheirOrders(int clientId)
         {
+            //Abre a transacao
             _unitOfWork.BeginTransaction();
 
             try
@@ -214,15 +236,18 @@ namespace SorteOnlineDesafio.Application.Services
 
                 _clienteRepository.Delete(client);
 
+                //Comita a transacao
                 _unitOfWork.CommitTransaction();
             }
             catch
             {
+                //Faz rollback e repassa a ex gerada
                 _unitOfWork.RollbackTransaction();
                 throw;
             }
             finally
             {
+                //Certifica que a transacao se encerre
                 _unitOfWork.Dispose();
             }           
         }
@@ -248,7 +273,5 @@ namespace SorteOnlineDesafio.Application.Services
         }
 
         #endregion
-
-
     }
 }

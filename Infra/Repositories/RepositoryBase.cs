@@ -58,15 +58,6 @@ namespace SorteOnlineDesafio.Infra.Repositories
             return _context.Set<TEntity>().Find(id);
         }
 
-        public void DeleteAll(IEnumerable<TEntity> obj)
-        {
-            _entities.RemoveRange(obj);
-        }
-        public void AddAll(IEnumerable<TEntity> obj)
-        {
-            _entities.AddRange(obj);
-        }
-
         public IEnumerable<TEntity> All()
         {
             return _entities.ToList();
@@ -80,22 +71,6 @@ namespace SorteOnlineDesafio.Infra.Repositories
             }
 
             return _entities.Where(predicate);
-        }
-
-
-        public long Count(Expression<Func<TEntity, bool>> predicate)
-        {
-            if (predicate == null)
-            {
-                throw new ArgumentNullException("predicate");
-            }
-
-            return _entities.Where(predicate).Count();
-        }
-
-        public IEnumerable<Class> SqlQuery<Class>(string query) where Class : class
-        {
-            return _context.Set<Class>().FromSqlRaw(query).ToList<Class>();
         }
 
         public void Dispose()
@@ -119,27 +94,6 @@ namespace SorteOnlineDesafio.Infra.Repositories
         public TEntity Get(int id)
         {
             return _context.Set<TEntity>().Find(id);
-        }
-
-        public static string GetDescription(Enum value)
-        {
-            Type type = value.GetType();
-            string name = Enum.GetName(type, value);
-            if (name != null)
-            {
-                FieldInfo field = type.GetField(name);
-                if (field != null)
-                {
-                    DescriptionAttribute attr =
-                           Attribute.GetCustomAttribute(field,
-                             typeof(DescriptionAttribute)) as DescriptionAttribute;
-                    if (attr != null)
-                    {
-                        return attr.Description;
-                    }
-                }
-            }
-            return null;
         }
     }
 }

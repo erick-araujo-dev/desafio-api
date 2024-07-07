@@ -40,6 +40,42 @@ namespace SorteOnlineDesafio.Application.Services
             return model;
         }
 
+        public UserModel GetById(int userId)
+        {
+            var userEntitie = _usuarioRepository.Find(u => u.UsuarioId == userId).FirstOrDefault() ?? throw new NotFoundException("Usuario não encontrado.");
+
+            UserModel usermodel = new UserModel
+            {
+                UserId = userEntitie.UsuarioId,
+                Name = userEntitie.Nome,
+                Email = userEntitie.Email
+            };
+
+            return usermodel;
+        }
+
+        public IList<UserModel> GetAll()
+        {
+            var listUserEntitie = _usuarioRepository.All();
+
+            IList<UserModel> listUserModel = new List<UserModel>();
+
+            foreach(var entitie in listUserEntitie)
+            {
+                UserModel usermodel = new()
+                {
+                    UserId = entitie.UsuarioId,
+                    Name = entitie.Nome,
+                    Email = entitie.Email
+                };
+
+                listUserModel.Add(usermodel);
+            }
+
+            return listUserModel;
+        }
+
+        #region Private methods
         private void ValidateEmail(string email)
         {
             var emailValid = Util.ValidateEmail(email);
@@ -56,5 +92,6 @@ namespace SorteOnlineDesafio.Application.Services
                 throw new BusinessException("E-mail já cadastrado.");
             }
         }
+        #endregion
     }
 }

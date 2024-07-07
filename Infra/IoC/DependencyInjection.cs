@@ -32,7 +32,6 @@ namespace SorteOnlineDesafio.Infra.IoC
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IStoreService, StoreService>();
 
-
             // Configuração de autenticação
             var authConfig = new AuthConfig();
             authConfig.ConfigureAuthentication(services, configuration);

@@ -6,5 +6,7 @@ namespace SorteOnlineDesafio.Application.Interfaces
     public interface IUserService
     {
         UserModel CreateUser(string name, string email, string password);
+        UserModel GetById(int userId);
+        IList<UserModel> GetAll();
     }
 }

@@ -1,30 +1,29 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using SorteOnlineDesafio.Domain.Entities;
-using SorteOnlineDesafio.Domain.Interfaces.Repository;
-using SorteOnlineDesafio.Infra.Repositories;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using SorteOnlineDesafio.Application.Interfaces;
 using SorteOnlineDesafio.WebApi.Commom;
 
 namespace SorteOnlineDesafio.WebApi.Controllers
 {
     [ApiController]
+    [Authorize]
     [Route("api/user")]
     public class UserController : BaseController
     {
-        private readonly IUsuarioRepository _usuarioRepository;
+        private readonly IUserService _userService;
 
-        public UserController(IUsuarioRepository usuarioRepository)
+        public UserController(IUserService userService)
         {
-            _usuarioRepository = usuarioRepository;
+            _userService = userService;
         }
 
         [HttpGet]
         [Route("all")]
-
         public IActionResult GetAll()
         {
             try
             {
-                var usuarios = _usuarioRepository.All();
+                var usuarios = _userService.GetAll();
 
                 return Ok(usuarios);
             }
@@ -35,12 +34,12 @@ namespace SorteOnlineDesafio.WebApi.Controllers
         }
 
         [HttpGet]
-        [Route("{id}")]
-        public IActionResult GetById([FromQuery] int id)
+        [Route("{userId}")]
+        public IActionResult GetById(int userId)
         {
             try
             {
-                var usuarios = _usuarioRepository.Find(u => u.UsuarioId == id).FirstOrDefault();
+                var usuarios = _userService.GetById(userId);
 
                 return Ok(usuarios);
             }
