@@ -22,8 +22,12 @@ Authentication is required for accessing certain endpoints.
 - **Endpoint:** /api/auth/signin
 - **Description:** Authenticates a user with email and password.
 - **Request Body:**
-  - `email` (string): The email address of the user.
-  - `password` (string): The password of the user.
+  ```json
+{
+  "email": "string",
+  "password": "string"
+}
+```
 - **Response:**
   - Status Code 200 OK
   - Returns a token for authentication.
@@ -72,7 +76,7 @@ Authentication is required for accessing certain endpoints.
 - **Description:** Creates a new client with the provided name and email.
 - **Request Body:**
   - `name` (string): The name of the client.
-  - `email` (string): The email address of the client.
+  - `email` (string): The email address of the client.git status
 - **Response:**
   - Status Code 201 Created
   - Returns the newly created client.
