@@ -37,6 +37,36 @@ namespace SorteOnlineDesafio.WebApi.Controllers
             }
         }
 
+        [HttpGet("client/{clientId}")]
+        public IActionResult GetClientById(int clientId)
+        {
+            try
+            {
+                var client = _storeService.GetClientById(clientId, false);
+
+                return Ok(client);
+            }
+            catch (Exception ex)
+            {
+                return HandleException(ex);
+            }
+        }
+
+        [HttpGet("client/all")]
+        public IActionResult GetAllClient()
+        {
+            try
+            {
+                var clients = _storeService.GetAllClient();
+
+                return Ok(clients);
+            }
+            catch (Exception ex)
+            {
+                return HandleException(ex);
+            }
+        }
+
         [HttpPost("order/create")]
         public IActionResult CreateOrder([FromBody] CreateOrderRequest request)
         {
@@ -44,6 +74,36 @@ namespace SorteOnlineDesafio.WebApi.Controllers
             {
                 var order = _storeService.CreateOrder(request.ClientId, request.TotalValue);
                 return CreatedAtAction(nameof(CreateOrder), new { id = order.OrderId }, order);
+            }
+            catch (Exception ex)
+            {
+                return HandleException(ex);
+            }
+        }
+
+        [HttpGet("order/{orderId}")]
+        public IActionResult GetOrderById(int orderId)
+        {
+            try
+            {
+                var order = _storeService.GetOrderById(orderId);
+               
+                return Ok(order);
+            }
+            catch (Exception ex)
+            {
+                return HandleException(ex);
+            }
+        }
+
+        [HttpGet("order/all")]
+        public IActionResult GetAllOrders()
+        {
+            try
+            {
+                var orders = _storeService.GetAllOrder();
+
+                return Ok(orders);
             }
             catch (Exception ex)
             {
@@ -81,6 +141,21 @@ namespace SorteOnlineDesafio.WebApi.Controllers
                 };
 
                 return CreatedAtAction(nameof(CreateClientAndOrder), response);
+            }
+            catch (Exception ex)
+            {
+                return HandleException(ex);
+            }
+        }
+
+        [HttpGet("client-order/{clientId}")]
+        public IActionResult GetClientAndAllOrderById(int clientId)
+        {
+            try
+            {
+                var clients = _storeService.GetClientById(clientId, true);
+
+                return Ok(clients);
             }
             catch (Exception ex)
             {

@@ -46,6 +46,50 @@ namespace SorteOnlineDesafio.Application.Services
             return clientModel;
         }
 
+        public ClientModel GetClientById(int clientId, bool includeOrders)
+        {
+            var client = _clienteRepository.Find(c => c.ClienteId == clientId).FirstOrDefault() ?? throw new NotFoundException("Cliente não encontrado."); ;
+
+            if (!includeOrders)
+                return new ClientModel
+                {
+                    ClientId = client.ClienteId,
+                    Name = client.Nome,
+                    Email = client.Email
+                };
+
+            // Incluir pedidos
+            var orders = _pedidoRepository.Find(p => p.ClienteId == clientId).Select(o => new OrderModel
+            {
+                OrderId = o.PedidoId,
+                ClientId = o.ClienteId,
+                OrderDate = o.DataPedido.ToString("yyyy-MM-dd HH:mm:ss"),
+                TotalValue = o.ValorTotal
+            }).ToList();
+
+            var clientWithOrders = new ClientModel
+            {
+                ClientId = client.ClienteId,
+                Name = client.Nome,
+                Email = client.Email,
+                Order = orders
+            };
+
+            return clientWithOrders;
+        }
+
+        public IList<ClientModel> GetAllClient()
+        {
+            var clients = _clienteRepository.All().Select(c => new ClientModel
+            {
+                ClientId = c.ClienteId,
+                Name = c.Nome,
+                Email = c.Email
+            }).ToList();
+
+            return clients;
+        }
+
         #endregion
 
         #region Order
@@ -80,6 +124,34 @@ namespace SorteOnlineDesafio.Application.Services
             };
 
             return orderModel;
+        }
+
+        public OrderModel GetOrderById(int orderId)
+        {
+            var order = _pedidoRepository.Find(p => p.PedidoId == orderId).FirstOrDefault() ?? throw new NotFoundException("Pedido não encontrado.");
+
+            var orderResponse = new OrderModel
+            {
+                OrderId = order.PedidoId,
+                ClientId = order.ClienteId,
+                OrderDate = order.DataPedido.ToString("yyyy-MM-dd HH:mm:ss"),
+                TotalValue = order.ValorTotal
+            };
+
+            return orderResponse;
+        }
+
+        public IList<OrderModel> GetAllOrder()
+        {
+            var orders = _pedidoRepository.All().Select(o => new OrderModel
+            {
+                OrderId = o.PedidoId,
+                ClientId = o.ClienteId,
+                OrderDate = o.DataPedido.ToString("yyyy-MM-dd HH:mm:ss"),
+                TotalValue = o.ValorTotal
+            }).ToList();
+
+            return orders;
         }
 
         public void DeleteOrder(int orderId)
