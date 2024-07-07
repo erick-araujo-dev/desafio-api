@@ -7,7 +7,7 @@ using SorteOnlineDesafio.WebApi.Commom;
 namespace SorteOnlineDesafio.WebApi.Controllers
 {
     [ApiController]
-    [Route("api/usuario")]
+    [Route("api/user")]
     public class UserController : BaseController
     {
         private readonly IUsuarioRepository _usuarioRepository;

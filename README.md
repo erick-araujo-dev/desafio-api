@@ -23,10 +23,10 @@ Authentication is required for accessing certain endpoints.
 - **Description:** Authenticates a user with email and password.
 - **Request Body:**
 	```
-		{
-		  "email": "string",
-		  "password": "string"
-		}
+	{
+		"email": "string",
+		"password": "string"
+	}
 	```
 - **Response:**
   - Status Code 200 OK
@@ -38,9 +38,13 @@ Authentication is required for accessing certain endpoints.
 - **Endpoint:** /api/auth/signup
 - **Description:** Registers a new user with name, email, and password.
 - **Request Body:**
-  - `name` (string): The name of the user.
-  - `email` (string): The email address of the user.
-  - `password` (string): The password of the user.
+	```
+	{
+		"name": "string",
+		"email": "string",
+		"password": "string"
+	}
+	```
 - **Response:**
   - Status Code 201 Created
   - Returns a token for authentication and the ID of the newly created user.
@@ -50,7 +54,7 @@ Authentication is required for accessing certain endpoints.
 ### Get All Users
 
 - **Method:** GET
-- **Endpoint:** /api/usuario/all
+- **Endpoint:** /api/user/all
 - **Description:** Retrieves all users.
 - **Response:**
   - Status Code 200 OK
@@ -59,7 +63,7 @@ Authentication is required for accessing certain endpoints.
 ### Get User by ID
 
 - **Method:** GET
-- **Endpoint:** /api/usuario/{id}
+- **Endpoint:** /api/user/{id}
 - **Description:** Retrieves a user by their ID.
 - **Parameters:**
   - `id` (integer): The ID of the user to retrieve.
@@ -75,8 +79,12 @@ Authentication is required for accessing certain endpoints.
 - **Endpoint:** /api/store/client/create
 - **Description:** Creates a new client with the provided name and email.
 - **Request Body:**
-  - `name` (string): The name of the client.
-  - `email` (string): The email address of the client.git status
+	```
+	{
+		"name": "string",
+		"email": "string"
+	}
+	```
 - **Response:**
   - Status Code 201 Created
   - Returns the newly created client.
@@ -107,8 +115,12 @@ Authentication is required for accessing certain endpoints.
 - **Endpoint:** /api/store/order/create
 - **Description:** Creates a new order for a client.
 - **Request Body:**
-  - `clientId` (integer): The ID of the client placing the order.
-  - `totalValue` (decimal): The total value of the order.
+	```
+	{
+		"clientId": 0,
+		"totalValue": 0
+	}
+	```
 - **Response:**
   - Status Code 201 Created
   - Returns the newly created order.
@@ -149,9 +161,13 @@ Authentication is required for accessing certain endpoints.
 - **Endpoint:** /api/store/client-order/create
 - **Description:** Creates a new client and places an order for them.
 - **Request Body:**
-  - `name` (string): The name of the client.
-  - `email` (string): The email address of the client.
-  - `totalValue` (decimal): The total value of the order.
+	```
+	{
+		"name": "string",
+		"email": "string",
+		"totalValue": 0
+	}
+	```
 - **Response:**
   - Status Code 201 Created
   - Returns the newly created client and order details.
