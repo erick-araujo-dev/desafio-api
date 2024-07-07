@@ -2,7 +2,7 @@
 
 ## Overview
 
-SorteOnlineDesafioApi is an API designed to manage clients and orders for a store.
+SorteOnlineDesafioApi is an ASP.NET Web API project designed to manage clients and orders for a store. It is built using .NET version 7.0.
 
 ## Base URL
 

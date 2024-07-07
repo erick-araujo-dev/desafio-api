@@ -12,7 +12,7 @@ namespace SorteOnlineDesafio.WebApi.Controllers
 {
     [Route("api/store")]
     [ApiController]
-    //[Authorize]
+    [Authorize]
     public class StoreController : BaseController
     {
         private readonly IStoreService _storeService;
