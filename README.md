@@ -22,12 +22,12 @@ Authentication is required for accessing certain endpoints.
 - **Endpoint:** /api/auth/signin
 - **Description:** Authenticates a user with email and password.
 - **Request Body:**
-  ```json
-{
-  "email": "string",
-  "password": "string"
-}
-```
+	```
+		{
+		  "email": "string",
+		  "password": "string"
+		}
+	```
 - **Response:**
   - Status Code 200 OK
   - Returns a token for authentication.
