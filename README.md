@@ -3,7 +3,7 @@
 ## Overview
 
 SorteOnlineDesafioApi is an ASP.NET Web API project designed to manage clients and orders for a store. It is built using .NET version 7.0.
-For detailed information on the AuthController and other controllers, please refer to the [full documentation](https://erick-araujo-dev.github.io/desafio-doc/).
+For detailed information access the [full documentation](https://erick-araujo-dev.github.io/desafio-doc/).
 
 ## Base URL
 
